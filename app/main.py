@@ -20,7 +20,7 @@ app.add_middleware(
 
 MAX_FILE_SIZE = 10 * 1024 * 1024  # 10 MB
 
-session = new_session()
+session = new_session("u2net", providers=["CUDAExecutionProvider", "CPUExecutionProvider"])
 
 @app.post("/remove-background")
 async def remove_background(file: UploadFile = File(...)):
@@ -37,7 +37,7 @@ async def remove_background_file(file: UploadFile = File(...)):
         raise HTTPException(status_code=413, detail="File is Too Large (Max 10MB)")
     if not image:
         raise HTTPException(status_code=400, detail="Empty File")
-    result = remove(image)
+    result = remove(image, session=session)
     encoded_image = base64.b64encode(result).decode('utf-8')
     return JSONResponse(content={"image_base64": encoded_image})
 

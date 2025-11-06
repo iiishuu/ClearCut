@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "shadcn": {
+      "type": "stdio",
+      "command": "/bin/bash",
+      "args": [
+        "/home/iishu/Epitech/Year3/ClearCut/mcp-shadcn-local.sh"
+      ],
+      "env": {}
+    }
+  }
+}
