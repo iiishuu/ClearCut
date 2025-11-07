@@ -1,10 +1,12 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { login } from "@/services/auth";
+import { useAuth } from "@/context/AuthContext";
 
 export default function LoginForm() {
+  const { login } = useAuth();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -41,10 +43,8 @@ export default function LoginForm() {
     }
 
     try {
-      const data = await login(formData.email, formData.password);
-      console.log("Login successful:", data);
-      localStorage.setItem("token", data.token);
-      window.location.href = "/app";
+      await login(formData.email, formData.password);
+      navigate("/account");
     } catch (err) {
       setError(err.response?.data?.message || "Erreur lors de la connexion.");
     }

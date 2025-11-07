@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { signup } from "@/services/auth";
+import { useAuth } from "@/context/AuthContext";
 
 export default function SignupForm() {
   const [formData, setFormData] = useState({
@@ -65,10 +65,8 @@ export default function SignupForm() {
     }
 
     try {
-      const data = await signup(formData.name, formData.email, formData.password);
-      console.log("Signup successful:", data);
-      localStorage.setItem("token", data.token);
-      window.location.href = "/app";
+      await signup(formData.name, formData.email, formData.password);
+      navigate("/account");
     } catch (err) {
       setError(err.response?.data?.message || "Erreur lors de l'inscription.");
     }

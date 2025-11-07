@@ -22,6 +22,7 @@ export const signup = async (req, res, next) => {
       success: true,
       message: "User created successfully",
       token,
+      user,
     });
   } catch (error) {
     next(error);
@@ -45,6 +46,7 @@ export const login = async (req, res, next) => {
       success: true,
       message: "User login successfully",
       token,
+      user,
     });
   } catch (error) {
     next(error);
