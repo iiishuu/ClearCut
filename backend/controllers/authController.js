@@ -1,16 +1,16 @@
 import jwt from "jsonwebtoken";
-import { User } from "../model/User";
+import { User } from "../model/User.js";
 import { compare, hash } from "bcrypt";
 
 export const signup = async (req, res, next) => {
   try {
-    const { username, email, password } = req.body;
+    const { name, email, password } = req.body;
     if (await User.findOne({ email })) {
       return res.status(400).json({ message: "Email already in use" });
     };
     const hashPassword = await hash(password, 10);
     const user = await User.create({
-      username,
+      name,
       email,
       password: hashPassword
     });

@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
-import { User } from "../model/User";
-import { compare, hash } from "bcrypt";
+import { User } from "../model/User.js";
+
 
 export const protect = async (req, res, next) => {
   try {
@@ -19,6 +19,7 @@ export const protect = async (req, res, next) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
+    req.user = user;
     next();
   } catch (error) {
     return res.status(401).json({ message: "Not authorized, invalid token" });

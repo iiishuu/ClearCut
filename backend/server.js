@@ -3,12 +3,18 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import authRoutes from "./routes/auth.js";
+import cors from "cors";
+
 
 dotenv.config();
 const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true
+}));
 
 // Montage du routeur :
 app.use("/api/auth", authRoutes);

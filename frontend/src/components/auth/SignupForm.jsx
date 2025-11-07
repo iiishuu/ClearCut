@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { signup } from "@/services/auth";
 
 export default function SignupForm() {
   const [formData, setFormData] = useState({
@@ -63,12 +64,15 @@ export default function SignupForm() {
       return;
     }
 
-    // TODO: Implement actual signup logic here
-    setTimeout(() => {
-      console.log("Signup attempt:", { ...formData, confirmPassword: undefined });
-      setLoading(false);
-      setError("Fonctionnalité d'inscription à implémenter.");
-    }, 1500);
+    try {
+      const data = await signup(formData.name, formData.email, formData.password);
+      console.log("Signup successful:", data);
+      localStorage.setItem("token", data.token);
+      window.location.href = "/app";
+    } catch (err) {
+      setError(err.response?.data?.message || "Erreur lors de l'inscription.");
+    }
+    setLoading(false);
   };
 
   return (

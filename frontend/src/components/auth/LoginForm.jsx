@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { login } from "@/services/auth";
 
 export default function LoginForm() {
   const [formData, setFormData] = useState({
@@ -39,12 +40,15 @@ export default function LoginForm() {
       return;
     }
 
-    // TODO: Implement actual login logic here
-    setTimeout(() => {
-      console.log("Login attempt:", formData);
-      setLoading(false);
-      setError("Fonctionnalité de connexion à implémenter.");
-    }, 1500);
+    try {
+      const data = await login(formData.email, formData.password);
+      console.log("Login successful:", data);
+      localStorage.setItem("token", data.token);
+      window.location.href = "/app";
+    } catch (err) {
+      setError(err.response?.data?.message || "Erreur lors de la connexion.");
+    }
+    setLoading(false);
   };
 
   return (

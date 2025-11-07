@@ -6,6 +6,7 @@ import Signup from "@/pages/Signup";
 import Pricing from "@/pages/Pricing";
 import Features from "@/pages/Features";
 import Contact from "@/pages/Contact";
+import Account from "@/pages/Account";
 
 export default function AppRouter() {
   return (
@@ -18,6 +19,7 @@ export default function AppRouter() {
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/features" element={<Features />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/account" element={<Account />} />
       </Routes>
 
     </Router>

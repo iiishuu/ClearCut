@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import api from "../services/api";
+import apiFast from "../services/apiFast";
 import { Button } from "@/components/ui/button";
 import MainLayout from "../layout/MainLayout";
 
@@ -31,7 +31,7 @@ export default function ImageUploader() {
     formData.append("file", selectedFile);
 
     try {
-      const response = await api.post("/remove-background", formData);
+      const response = await apiFast.post("/remove-background", formData);
       const base64String = response.data.image_base64;
 
       if (base64String) {

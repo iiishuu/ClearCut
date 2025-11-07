@@ -35,21 +35,29 @@ export default function Header() {
           </Link>
         </nav>
 
-        <div className="hidden md:flex items-center space-x-3">
-          {/* Connexion */}
-          <Link to="/login">
+        {localStorage.getItem("token") ? (
+          <Link to="/account">
             <Button variant="ghost" size="default">
-              Se connecter
+              Mon compte
             </Button>
           </Link>
+        ) : (
+          <div className="hidden md:flex items-center space-x-3">
+            {/* Connexion */}
+            <Link to="/login">
+              <Button variant="ghost" size="default">
+                Se connecter
+              </Button>
+            </Link>
 
-          {/* Inscription */}
-          <Link to="/signup">
-            <Button variant="default" size="default">
-              S'inscrire
-            </Button>
-          </Link>
-        </div>
+            {/* Inscription */}
+            <Link to="/signup">
+              <Button variant="default" size="default">
+                S'inscrire
+              </Button>
+            </Link>
+          </div>
+        )}
       </div>
     </header>
   );
